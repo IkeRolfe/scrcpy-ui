@@ -1,0 +1,49 @@
+﻿<mah:MetroWindow
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="scrcpy_ui.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:scrcpy_ui.Views"
+    Title="ScrCpy UI"
+        xmlns:controls="clr-namespace:scrcpy_ui.Controls"
+    FontSize="16"
+        mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+                <Setter Property="Margin" Value="0 0 5 5"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="StartScrcpy">START</Button>
+                <Button x:Name="StopScrcpy">STOP</Button>
+                <Button x:Name="Test">Test</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox x:Name="Record" VerticalAlignment="Center"></CheckBox>
+                <Label Content=" RECORD | RECORD TO: "/>
+                <TextBox MinWidth="200"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <TextBox x:Name="Output"/>
+        </ScrollViewer>
+        <controls:NestedApplicationControl Grid.Column="2" Grid.RowSpan="3"
+                                           DockedProcess="{Binding ScrpyProcess}"/>
+    </Grid>
+</mah:MetroWindow>
