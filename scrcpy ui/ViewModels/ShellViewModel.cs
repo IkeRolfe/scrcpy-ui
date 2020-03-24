@@ -156,9 +156,22 @@ namespace scrcpy_ui.ViewModels
         {
             if (ScrpyProcess.HasExited == false)
             {
-                ScrpyProcess.CloseMainWindow();
-                //TODO: Handle timeout
-                ScrpyProcess.WaitForExit(10000);
+                //Wait for the process to exit or time out.
+                ScrpyProcess.WaitForExit(1000);
+                //Check to see if the process is still running.
+                if (ScrpyProcess.HasExited == false)
+                    //Process is still running.
+                    //Test to see if the process is hung up.
+                    if (ScrpyProcess.Responding)
+                    {
+                        //Process was responding; close the main window.
+                        ScrpyProcess.CloseMainWindow();
+                    }
+                    else
+                    {
+                        //Process was not responding; force the process to close.
+                        ScrpyProcess.Kill();
+                    }
             }
         }
                 
@@ -306,9 +319,22 @@ namespace scrcpy_ui.ViewModels
         {
             if (ScrpyProcess2.HasExited == false)
             {
-                ScrpyProcess2.CloseMainWindow();
-                //TODO: Handle timeout
-                ScrpyProcess2.WaitForExit(10000);
+                //Wait for the process to exit or time out.
+                ScrpyProcess2.WaitForExit(1000);
+                //Check to see if the process is still running.
+                if (ScrpyProcess2.HasExited == false)
+                    //Process is still running.
+                    //Test to see if the process is hung up.
+                    if (ScrpyProcess2.Responding)
+                    {
+                        //Process was responding; close the main window.
+                        ScrpyProcess2.CloseMainWindow();
+                    }
+                    else
+                    {
+                        //Process was not responding; force the process to close.
+                        ScrpyProcess2.Kill();
+                    }
             }
         }
 
