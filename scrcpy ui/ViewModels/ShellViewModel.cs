@@ -228,8 +228,10 @@ namespace scrcpy_ui.ViewModels
             //return;
 
             // You can scrcpy 2nd device even via Wifi-ADB 
-            // By adding ex. "-s 175.20.3.45" in defaultArgs
-            var defaultArgs = "--bit-rate 16M --window-borderless -s 172.30.1.14";
+            // By adding ex. "-s 175.20.3.45" in defaultArgs 
+            // Or if you are connected via cable
+            // add device id like "-s R27M10F1ZXP"
+            var defaultArgs = "--bit-rate 16M --window-borderless";
             var args = defaultArgs;
 
             if (Record2)
