@@ -84,11 +84,11 @@ namespace scrcpy_ui.Controls
 
             
             //Perform an initial call to set the size.
-            //AlignToPannel();
+            AlignToPanel();
         }
 
 
-        private void AlignToPanel()
+        private static void AlignToPanel()
         {
             MoveWindow(hWndDocked, 0, 0, Panel.Width, Panel.Height, true);
         }

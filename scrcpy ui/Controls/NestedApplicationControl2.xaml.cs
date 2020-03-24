@@ -85,7 +85,7 @@ namespace scrcpy_ui.Controls
 
 
             //Perform an initial call to set the size.
-            //AlignToPannel();
+            AlignToPanel();
         }
 
 
