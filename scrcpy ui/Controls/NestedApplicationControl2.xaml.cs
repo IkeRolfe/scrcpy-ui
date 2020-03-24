@@ -19,7 +19,7 @@ namespace scrcpy_ui.Controls
     /// <summary>
     /// Interaction logic for NestedApplicationControl.xaml
     /// </summary>
-    public partial class NestedApplicationControl : UserControl
+    public partial class NestedApplicationControl2 : UserControl
     {
         [DllImport("user32.dll")]
         static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -30,7 +30,6 @@ namespace scrcpy_ui.Controls
         private static IntPtr hWndOriginalParent;
         private static IntPtr hWndDocked;
         public static System.Windows.Forms.Panel Panel;
-
 
 
         public Process DockedProcess
@@ -45,16 +44,17 @@ namespace scrcpy_ui.Controls
         // Using a DependencyProperty as the backing store for DockedProcess.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DockedProcessProperty =
             DependencyProperty.Register(
-                "DockedProcess", typeof(Process), typeof(NestedApplicationControl), 
-                new PropertyMetadata(default,new PropertyChangedCallback(OnDockedProcessChanged))
+                "DockedProcess", typeof(Process), typeof(NestedApplicationControl2),
+                new PropertyMetadata(default, new PropertyChangedCallback(OnDockedProcessChanged))
                 );
 
         private static void OnDockedProcessChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            Debug.WriteLine("OnDocekdProcessChanged2");
             DockIt((Process)e.NewValue);
         }
 
-        public NestedApplicationControl()
+        public NestedApplicationControl2()
         {
             InitializeComponent();
             Panel = new System.Windows.Forms.Panel();
@@ -66,8 +66,9 @@ namespace scrcpy_ui.Controls
         private static void DockIt(Process process)
         {
             //if (hWndDocked != IntPtr.Zero) //don't do anything if there's already a window docked.
-                //return;
-            
+            //return;
+            Debug.WriteLine("DockIt Called2");
+
             while (hWndDocked == IntPtr.Zero)
             {
                 //process.WaitForInputIdle(1000); //wait for the window to be ready for input;
@@ -82,7 +83,7 @@ namespace scrcpy_ui.Controls
             //It returns the hWnd of the window's parent prior to this call.
             hWndOriginalParent = SetParent(hWndDocked, Panel.Handle);
 
-            
+
             //Perform an initial call to set the size.
             AlignToPanel();
         }
@@ -91,10 +92,12 @@ namespace scrcpy_ui.Controls
         private static void AlignToPanel()
         {
             MoveWindow(hWndDocked, 0, 0, Panel.Width, Panel.Height, true);
+            Debug.WriteLine("22 AlignToPanel Called + {0}, {1}   {2}", Panel.Width, Panel.Height, hWndDocked);
         }
 
         void window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            Debug.WriteLine("22WindowChanged");
             AlignToPanel();
         }
     }

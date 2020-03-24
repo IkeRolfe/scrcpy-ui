@@ -21,18 +21,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="StartScrcpy">START</Button>
                 <Button x:Name="StopScrcpy">STOP</Button>
-                <Button x:Name="Test">Test</Button>
+                <Button x:Name="StartScrcpy2">START 2</Button>
+                <Button x:Name="StopScrcpy2">STOP 2</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="Record" VerticalAlignment="Center"></CheckBox>
@@ -44,6 +44,8 @@
             <TextBox x:Name="Output"/>
         </ScrollViewer>
         <controls:NestedApplicationControl Grid.Column="2" Grid.RowSpan="3"
-                                           DockedProcess="{Binding ScrpyProcess}"/>
+                                           DockedProcess="{Binding ScrcpyProcess}"/>
+        <controls:NestedApplicationControl2 Grid.Column="2" Grid.RowSpan="2"
+                                           DockedProcess="{Binding ScrcpyProcess2}"/>
     </Grid>
 </mah:MetroWindow>
