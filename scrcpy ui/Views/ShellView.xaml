@@ -32,7 +32,6 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="StartScrcpy">START</Button>
                 <Button x:Name="StopScrcpy">STOP</Button>
-                <Button x:Name="Test">Test</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="Record" VerticalAlignment="Center"></CheckBox>
