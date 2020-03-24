@@ -16,13 +16,13 @@ namespace scrcpy_ui.ViewModels
 
         }       
 
-        public Process ScrpyProcess
+        public Process ScrcpyProcess
         {
-            get => _scrpyProcess;
+            get => _scrcpyProcess;
             set
             {
-                _scrpyProcess = value;
-                NotifyOfPropertyChange(() => ScrpyProcess);
+                _scrcpyProcess = value;
+                NotifyOfPropertyChange(() => ScrcpyProcess);
             }
         }
         private bool _record = true;
@@ -49,7 +49,7 @@ namespace scrcpy_ui.ViewModels
         }
 
         private bool _isRunning;
-        private Process _scrpyProcess;
+        private Process _scrcpyProcess;
 
         public bool IsRunning
         {
@@ -64,7 +64,7 @@ namespace scrcpy_ui.ViewModels
 
         public async void StartScrcpy()
         {
-            //ScrpyProcess = Process.Start("notepad.exe");
+            //ScrcpyProcess = Process.Start("notepad.exe");
             //return;
 
             // You can scrcpy via Wifi-ADB 
@@ -101,7 +101,7 @@ namespace scrcpy_ui.ViewModels
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                process.OutputDataReceived += ScrpyProcessOnOutputDataReceived;
+                process.OutputDataReceived += ScrcpyProcessOnOutputDataReceived;
                 //Can't think of a better way to do this
                 await Task.Delay(3000);
                 //hread.Sleep(2000);
@@ -110,7 +110,7 @@ namespace scrcpy_ui.ViewModels
                     Thread.Sleep(200);
                     process.Refresh();
                 }*/
-                ScrpyProcess = process;
+                ScrcpyProcess = process;
                 NotifyOfPropertyChange(() => CanStopScrcpy);
                 NotifyOfPropertyChange(() => CanStartScrcpy);
             }
@@ -123,19 +123,19 @@ namespace scrcpy_ui.ViewModels
             {
                 //StartScrcpy.IsEnabled = false;
                 //StopScrcpy.IsEnabled = true;
-                ScrpyProcess.Exited += ScrpyProcessOnExited;
+                ScrcpyProcess.Exited += ScrcpyProcessOnExited;
             }
 
-            /*while (!_scrpyProcess.StandardOutput.EndOfStream)
+            /*while (!_scrcpyProcess.StandardOutput.EndOfStream)
             {
-                var line = _scrpyProcess.StandardOutput.ReadLine();
+                var line = _scrcpyProcess.StandardOutput.ReadLine();
                 if (line != null) OutputTextBox.Text += line;
             }*/
         }
 
-        private void ScrpyProcessOnExited(object? sender, EventArgs e)
+        private void ScrcpyProcessOnExited(object? sender, EventArgs e)
         {
-            if (ScrpyProcess != null)
+            if (ScrcpyProcess != null)
             {
                 StopScrcpy();
             }
@@ -144,7 +144,7 @@ namespace scrcpy_ui.ViewModels
             NotifyOfPropertyChange(() => CanStartScrcpy);
         }
 
-        private void ScrpyProcessOnOutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void ScrcpyProcessOnOutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -154,37 +154,37 @@ namespace scrcpy_ui.ViewModels
 
         public void StopScrcpy()
         {
-            if (ScrpyProcess.HasExited == false)
+            if (ScrcpyProcess.HasExited == false)
             {
                 //Wait for the process to exit or time out.
-                ScrpyProcess.WaitForExit(1000);
+                ScrcpyProcess.WaitForExit(1000);
                 //Check to see if the process is still running.
-                if (ScrpyProcess.HasExited == false)
+                if (ScrcpyProcess.HasExited == false)
                     //Process is still running.
                     //Test to see if the process is hung up.
-                    if (ScrpyProcess.Responding)
+                    if (ScrcpyProcess.Responding)
                     {
                         //Process was responding; close the main window.
-                        ScrpyProcess.CloseMainWindow();
+                        ScrcpyProcess.CloseMainWindow();
                     }
                     else
                     {
                         //Process was not responding; force the process to close.
-                        ScrpyProcess.Kill();
+                        ScrcpyProcess.Kill();
                     }
             }
         }
                 
-        public bool CanStopScrcpy => !ScrpyProcess?.HasExited ?? true;
-        public bool CanStartScrcpy => ScrpyProcess?.HasExited ?? true;
+        public bool CanStopScrcpy => !ScrcpyProcess?.HasExited ?? true;
+        public bool CanStartScrcpy => ScrcpyProcess?.HasExited ?? true;
 
-        public Process ScrpyProcess2
+        public Process ScrcpyProcess2
         {
-            get => _scrpyProcess2;
+            get => _scrcpyProcess2;
             set
             {
-                _scrpyProcess2 = value;
-                NotifyOfPropertyChange(() => ScrpyProcess2);
+                _scrcpyProcess2 = value;
+                NotifyOfPropertyChange(() => ScrcpyProcess2);
             }
         }
         private bool _record2 = true;
@@ -211,7 +211,7 @@ namespace scrcpy_ui.ViewModels
         }
 
         private bool _isRunning2;
-        private Process _scrpyProcess2;
+        private Process _scrcpyProcess2;
 
         public bool IsRunning2
         {
@@ -224,7 +224,7 @@ namespace scrcpy_ui.ViewModels
 
         public async void StartScrcpy2()
         {
-            //ScrpyProcess2 = Process.Start("notepad.exe");
+            //ScrcpyProcess2 = Process.Start("notepad.exe");
             //return;
 
             // You can scrcpy 2nd device even via Wifi-ADB 
@@ -263,7 +263,7 @@ namespace scrcpy_ui.ViewModels
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                process.OutputDataReceived += ScrpyProcessOnOutputDataReceived2;
+                process.OutputDataReceived += ScrcpyProcessOnOutputDataReceived2;
                 //Can't think of a better way to do this
                 await Task.Delay(3000);
                 //hread.Sleep(2000);
@@ -272,7 +272,7 @@ namespace scrcpy_ui.ViewModels
                     Thread.Sleep(200);
                     process.Refresh();
                 }*/
-                ScrpyProcess2 = process;
+                ScrcpyProcess2 = process;
                 NotifyOfPropertyChange(() => CanStopScrcpy2);
                 NotifyOfPropertyChange(() => CanStartScrcpy2);
             }
@@ -285,22 +285,22 @@ namespace scrcpy_ui.ViewModels
             {
                 //StartScrcpy.IsEnabled = false;
                 //StopScrcpy.IsEnabled = true;
-                ScrpyProcess2.Exited += ScrpyProcessOnExited2;
+                ScrcpyProcess2.Exited += ScrcpyProcessOnExited2;
             }
 
 
 
 
-            /*while (!_scrpyProcess.StandardOutput.EndOfStream)
+            /*while (!_scrcpyProcess.StandardOutput.EndOfStream)
             {
-                var line = _scrpyProcess.StandardOutput.ReadLine();
+                var line = _scrcpyProcess.StandardOutput.ReadLine();
                 if (line != null) OutputTextBox.Text += line;
             }*/
         }
 
-        private void ScrpyProcessOnExited2(object? sender, EventArgs e)
+        private void ScrcpyProcessOnExited2(object? sender, EventArgs e)
         {
-            if (ScrpyProcess2 != null)
+            if (ScrcpyProcess2 != null)
             {
                 StopScrcpy2();
             }
@@ -309,7 +309,7 @@ namespace scrcpy_ui.ViewModels
             NotifyOfPropertyChange(() => CanStartScrcpy2);
         }
 
-        private void ScrpyProcessOnOutputDataReceived2(object sender, DataReceivedEventArgs e)
+        private void ScrcpyProcessOnOutputDataReceived2(object sender, DataReceivedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -319,29 +319,29 @@ namespace scrcpy_ui.ViewModels
 
         public void StopScrcpy2()
         {
-            if (ScrpyProcess2.HasExited == false)
+            if (ScrcpyProcess2.HasExited == false)
             {
                 //Wait for the process to exit or time out.
-                ScrpyProcess2.WaitForExit(1000);
+                ScrcpyProcess2.WaitForExit(1000);
                 //Check to see if the process is still running.
-                if (ScrpyProcess2.HasExited == false)
+                if (ScrcpyProcess2.HasExited == false)
                     //Process is still running.
                     //Test to see if the process is hung up.
-                    if (ScrpyProcess2.Responding)
+                    if (ScrcpyProcess2.Responding)
                     {
                         //Process was responding; close the main window.
-                        ScrpyProcess2.CloseMainWindow();
+                        ScrcpyProcess2.CloseMainWindow();
                     }
                     else
                     {
                         //Process was not responding; force the process to close.
-                        ScrpyProcess2.Kill();
+                        ScrcpyProcess2.Kill();
                     }
             }
         }
 
-        public bool CanStopScrcpy2 => !ScrpyProcess2?.HasExited ?? true;
-        public bool CanStartScrcpy2 => ScrpyProcess2?.HasExited ?? true;
+        public bool CanStopScrcpy2 => !ScrcpyProcess2?.HasExited ?? true;
+        public bool CanStartScrcpy2 => ScrcpyProcess2?.HasExited ?? true;
     }
 }
 

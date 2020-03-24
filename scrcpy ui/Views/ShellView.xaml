@@ -44,8 +44,8 @@
             <TextBox x:Name="Output"/>
         </ScrollViewer>
         <controls:NestedApplicationControl Grid.Column="2" Grid.RowSpan="3"
-                                           DockedProcess="{Binding ScrpyProcess}"/>
+                                           DockedProcess="{Binding ScrcpyProcess}"/>
         <controls:NestedApplicationControl2 Grid.Column="2" Grid.RowSpan="2"
-                                           DockedProcess="{Binding ScrpyProcess2}"/>
+                                           DockedProcess="{Binding ScrcpyProcess2}"/>
     </Grid>
 </mah:MetroWindow>
