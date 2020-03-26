@@ -1,20 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Caliburn.Micro;
 
 namespace scrcpy_ui.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : INotifyPropertyChanged
     {
         public ShellViewModel()
         {
 
-        }       
+        }
+
+        #region INotifyPropertyChanged Member
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region INotifyPropertyChanged Methods
+
+        private void RaisePropertyChanged(string propertyName)
+        {
+            // take a copy to prevent thread issues
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
 
         public Process ScrcpyProcess
         {
@@ -22,7 +41,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _scrcpyProcess = value;
-                NotifyOfPropertyChange(() => ScrcpyProcess);
+                RaisePropertyChanged("ScrpyProcess");
             }
         }
         private bool _record = true;
@@ -32,7 +51,7 @@ namespace scrcpy_ui.ViewModels
             get => _record; set
             {
                 _record = value;
-                NotifyOfPropertyChange(() => Record);
+                RaisePropertyChanged("Record");
             }
         }
 
@@ -44,7 +63,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _output = value;
-                NotifyOfPropertyChange(() => Output);
+                RaisePropertyChanged("Output");
             }
         }
 
@@ -56,7 +75,7 @@ namespace scrcpy_ui.ViewModels
             get => _isRunning; set
             {
                 _isRunning = value;
-                NotifyOfPropertyChange(() => _isRunning);
+                 RaisePropertyChanged("_isRunning");
             }
         }
 
@@ -111,8 +130,8 @@ namespace scrcpy_ui.ViewModels
                     process.Refresh();
                 }*/
                 ScrcpyProcess = process;
-                NotifyOfPropertyChange(() => CanStopScrcpy);
-                NotifyOfPropertyChange(() => CanStartScrcpy);
+                RaisePropertyChanged("CanStopScrcpy");
+                RaisePropertyChanged("CanStartScrcpy");
             }
             catch (Exception exception)
             {
@@ -140,8 +159,8 @@ namespace scrcpy_ui.ViewModels
                 StopScrcpy();
             }
 
-            NotifyOfPropertyChange(() => CanStopScrcpy);
-            NotifyOfPropertyChange(() => CanStartScrcpy);
+            RaisePropertyChanged("CanStopScrcpy");
+            RaisePropertyChanged("CanStartScrcpy");
         }
 
         private void ScrcpyProcessOnOutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -184,7 +203,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _scrcpyProcess2 = value;
-                NotifyOfPropertyChange(() => ScrcpyProcess2);
+                RaisePropertyChanged("ScrpyProcess2");
             }
         }
         private bool _record2 = true;
@@ -194,7 +213,7 @@ namespace scrcpy_ui.ViewModels
             get => _record2; set
             {
                 _record2 = value;
-                NotifyOfPropertyChange(() => Record2);
+                RaisePropertyChanged("Record2");
             }
         }
 
@@ -206,7 +225,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _output2 = value;
-                NotifyOfPropertyChange(() => Output2);
+                RaisePropertyChanged("Output2");
             }
         }
 
@@ -218,7 +237,7 @@ namespace scrcpy_ui.ViewModels
             get => _isRunning2; set
             {
                 _isRunning2 = value;
-                NotifyOfPropertyChange(() => _isRunning2);
+                RaisePropertyChanged("_isRunning2");
             }
         }
 
@@ -273,8 +292,8 @@ namespace scrcpy_ui.ViewModels
                     process.Refresh();
                 }*/
                 ScrcpyProcess2 = process;
-                NotifyOfPropertyChange(() => CanStopScrcpy2);
-                NotifyOfPropertyChange(() => CanStartScrcpy2);
+                RaisePropertyChanged("CanStopScrcpy2");
+                RaisePropertyChanged("CanStartScrcpy2");
             }
             catch (Exception exception)
             {
@@ -305,8 +324,8 @@ namespace scrcpy_ui.ViewModels
                 StopScrcpy2();
             }
 
-            NotifyOfPropertyChange(() => CanStopScrcpy2);
-            NotifyOfPropertyChange(() => CanStartScrcpy2);
+            RaisePropertyChanged("CanStopScrcpy2");
+            RaisePropertyChanged("CanStartScrcpy2");
         }
 
         private void ScrcpyProcessOnOutputDataReceived2(object sender, DataReceivedEventArgs e)
