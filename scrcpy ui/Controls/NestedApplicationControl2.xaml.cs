@@ -50,7 +50,6 @@ namespace scrcpy_ui.Controls
 
         private static void OnDockedProcessChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Debug.WriteLine("OnDocekdProcessChanged2");
             DockIt((Process)e.NewValue);
         }
 
@@ -67,7 +66,6 @@ namespace scrcpy_ui.Controls
         {
             //if (hWndDocked != IntPtr.Zero) //don't do anything if there's already a window docked.
             //return;
-            Debug.WriteLine("DockIt Called2");
 
             while (hWndDocked == IntPtr.Zero)
             {
@@ -92,12 +90,10 @@ namespace scrcpy_ui.Controls
         private static void AlignToPanel()
         {
             MoveWindow(hWndDocked, 0, 0, Panel.Width, Panel.Height, true);
-            Debug.WriteLine("22 AlignToPanel Called + {0}, {1}   {2}", Panel.Width, Panel.Height, hWndDocked);
         }
 
         void window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Debug.WriteLine("22WindowChanged");
             AlignToPanel();
         }
     }
