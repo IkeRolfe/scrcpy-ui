@@ -11,6 +11,5 @@ namespace scrcpy_ui
         {
             InitializeComponent();
         }
-
     }
 }

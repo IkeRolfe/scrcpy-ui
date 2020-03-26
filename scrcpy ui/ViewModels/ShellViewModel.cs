@@ -42,7 +42,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _scrcpyProcess = value;
-                RaisePropertyChanged("ScrpyProcess");
+                RaisePropertyChanged("ScrcpyProcess");
             }
         }
         private bool _record = true;
@@ -80,10 +80,10 @@ namespace scrcpy_ui.ViewModels
             }
         }
 
-        private ICommand startScrpyCommand;
+        private ICommand startScrcpyCommand;
         public ICommand StartScrcpyCommand
         {
-            get { return (this.startScrpyCommand) ?? (this.startScrpyCommand = new DelegateCommand(StartScrcpy)); }
+            get { return (this.startScrcpyCommand) ?? (this.startScrcpyCommand = new DelegateCommand(StartScrcpy)); }
         }
 
         bool isProcRunSuccess;
@@ -141,7 +141,7 @@ namespace scrcpy_ui.ViewModels
                     ScrcpyProcess = process;
                     if (ScrcpyProcess == null)
                     {
-                        Debug.WriteLine("Error : scrpyProcess is null");
+                        Debug.WriteLine("Error : scrcpyProcess is null");
                     }
                     else
                     {
@@ -196,10 +196,10 @@ namespace scrcpy_ui.ViewModels
             }
         }
 
-        private ICommand stopScrpyCommand;
+        private ICommand stopScrcpyCommand;
         public ICommand StopScrcpyCommand
         {
-            get { return (this.stopScrpyCommand) ?? (this.stopScrpyCommand = new DelegateCommand(StopScrcpy)); }
+            get { return (this.stopScrcpyCommand) ?? (this.stopScrcpyCommand = new DelegateCommand(StopScrcpy)); }
         }
 
         public void StopScrcpy()
@@ -212,16 +212,17 @@ namespace scrcpy_ui.ViewModels
                 if (ScrcpyProcess.HasExited == false)
                     //Process is still running.
                     //Test to see if the process is hung up.
-                    if (ScrcpyProcess.Responding)
-                    {
-                        //Process was responding; close the main window.
-                        ScrcpyProcess.CloseMainWindow();
-                    }
-                    else
-                    {
-                        //Process was not responding; force the process to close.
-                        ScrcpyProcess.Kill();
-                    }
+                    //if (ScrcpyProcess.Responding)
+                    //{
+                    //    //Process was responding; close the main window.
+                    //    ScrcpyProcess.CloseMainWindow();
+                    //    Debug.Write("CloseMainWindow");
+                    //}
+                    //else
+                    //{
+                    //    //Process was not responding; force the process to close.
+                    ScrcpyProcess.Kill();
+                //}
             }
         }
                 
@@ -234,7 +235,7 @@ namespace scrcpy_ui.ViewModels
             set
             {
                 _scrcpyProcess2 = value;
-                RaisePropertyChanged("ScrpyProcess2");
+                RaisePropertyChanged("ScrcpyProcess2");
             }
         }
         private bool _record2 = true;
@@ -272,10 +273,10 @@ namespace scrcpy_ui.ViewModels
             }
         }
 
-        private ICommand startScrpyCommand2;
+        private ICommand startScrcpyCommand2;
         public ICommand StartScrcpyCommand2
         {
-            get { return (this.startScrpyCommand2) ?? (this.startScrpyCommand2 = new DelegateCommand(StartScrcpy2)); }
+            get { return (this.startScrcpyCommand2) ?? (this.startScrcpyCommand2 = new DelegateCommand(StartScrcpy2)); }
         }
 
         bool isProcRunSuccess2;
@@ -385,21 +386,16 @@ namespace scrcpy_ui.ViewModels
             if (e.Data != null && !e.Data.Contains("error"))
             {
                 isProcRunSuccess2 = true;
-                if (ScrcpyProcess2 != null)
-                {
-                    Debug.WriteLine("ERR not null");
-                    StopScrcpy2();
-                }
 
                 RaisePropertyChanged("CanStopScrcpy2");
                 RaisePropertyChanged("CanStartScrcpy2");
             }
         }
 
-        private ICommand stopScrpyCommand2;
+        private ICommand stopScrcpyCommand2;
         public ICommand StopScrcpyCommand2
         {
-            get { return (this.stopScrpyCommand2) ?? (this.stopScrpyCommand2 = new DelegateCommand(StopScrcpy2)); }
+            get { return (this.stopScrcpyCommand2) ?? (this.stopScrcpyCommand2 = new DelegateCommand(StopScrcpy2)); }
         }
 
         public void StopScrcpy2()
@@ -412,16 +408,17 @@ namespace scrcpy_ui.ViewModels
                 if (ScrcpyProcess2.HasExited == false)
                     //Process is still running.
                     //Test to see if the process is hung up.
-                    if (ScrcpyProcess2.Responding)
-                    {
-                        //Process was responding; close the main window.
-                        ScrcpyProcess2.CloseMainWindow();
-                    }
-                    else
-                    {
-                        //Process was not responding; force the process to close.
-                        ScrcpyProcess2.Kill();
-                    }
+                    //if (ScrcpyProcess2.Responding)
+                    //{
+                    //    //Process was responding; close the main window.
+                    //    ScrcpyProcess2.CloseMainWindow();
+                    //    Debug.Write("CloseMainWindow");
+                    //}
+                    //else
+                    //{
+                    //Process was not responding; force the process to close.
+                    ScrcpyProcess2.Kill();
+                //}
             }
         }
 
