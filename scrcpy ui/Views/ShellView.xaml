@@ -7,7 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:scrcpy_ui.ViewModels"
              xmlns:local="clr-namespace:scrcpy_ui.Views"
-    Title="ScrCpy UI"
+    Title="ScrCpy UI WPF"
         xmlns:controls="clr-namespace:scrcpy_ui.Controls"
     FontSize="16"
         mc:Ignorable="d" 

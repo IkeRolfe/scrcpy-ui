@@ -86,7 +86,7 @@ namespace scrcpy_ui.ViewModels
             get { return (this.startScrpyCommand) ?? (this.startScrpyCommand = new DelegateCommand(StartScrcpy)); }
         }
 
-
+        bool isProcRunSuccess;
         public async void StartScrcpy()
         {
             //ScrcpyProcess = Process.Start("notepad.exe");
@@ -96,6 +96,8 @@ namespace scrcpy_ui.ViewModels
             // By adding ex. "-s 175.20.3.45" in defaultArgs
             var defaultArgs = "--bit-rate 16M --window-borderless";
             var args = defaultArgs;
+
+            isProcRunSuccess = false;
 
             if (Record)
             {
@@ -113,7 +115,6 @@ namespace scrcpy_ui.ViewModels
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
-
             };
 
             try
@@ -135,9 +136,19 @@ namespace scrcpy_ui.ViewModels
                     Thread.Sleep(200);
                     process.Refresh();
                 }*/
-                ScrcpyProcess = process;
-                RaisePropertyChanged("CanStopScrcpy");
-                RaisePropertyChanged("CanStartScrcpy");
+                if (isProcRunSuccess)
+                {
+                    ScrcpyProcess = process;
+                    if (ScrcpyProcess == null)
+                    {
+                        Debug.WriteLine("Error : scrpyProcess is null");
+                    }
+                    else
+                    {
+                        RaisePropertyChanged("CanStopScrcpy");
+                        RaisePropertyChanged("CanStartScrcpy");
+                    }
+                }
             }
             catch (Exception exception)
             {
@@ -148,7 +159,8 @@ namespace scrcpy_ui.ViewModels
             {
                 //StartScrcpy.IsEnabled = false;
                 //StopScrcpy.IsEnabled = true;
-                ScrcpyProcess.Exited += ScrcpyProcessOnExited;
+                if (isProcRunSuccess)
+                    ScrcpyProcess.Exited += ScrcpyProcessOnExited;
             }
 
             /*while (!_scrcpyProcess.StandardOutput.EndOfStream)
@@ -175,6 +187,13 @@ namespace scrcpy_ui.ViewModels
             {
                 Output += e.Data + "\r\n";
             });
+            if (e.Data != null && !e.Data.Contains("error"))
+            {
+                isProcRunSuccess = true;
+
+                RaisePropertyChanged("CanStopScrcpy");
+                RaisePropertyChanged("CanStartScrcpy");
+            }
         }
 
         private ICommand stopScrpyCommand;
@@ -259,6 +278,7 @@ namespace scrcpy_ui.ViewModels
             get { return (this.startScrpyCommand2) ?? (this.startScrpyCommand2 = new DelegateCommand(StartScrcpy2)); }
         }
 
+        bool isProcRunSuccess2;
         public async void StartScrcpy2()
         {
             //ScrcpyProcess2 = Process.Start("notepad.exe");
@@ -270,6 +290,8 @@ namespace scrcpy_ui.ViewModels
             // add device id like "-s R27M10F1ZXP"
             var defaultArgs = "--bit-rate 16M --window-borderless";
             var args = defaultArgs;
+
+            isProcRunSuccess2 = false;
 
             if (Record2)
             {
@@ -309,9 +331,19 @@ namespace scrcpy_ui.ViewModels
                     Thread.Sleep(200);
                     process.Refresh();
                 }*/
-                ScrcpyProcess2 = process;
-                RaisePropertyChanged("CanStopScrcpy2");
-                RaisePropertyChanged("CanStartScrcpy2");
+                if (isProcRunSuccess2)
+                {
+                    ScrcpyProcess2 = process;
+                    if (ScrcpyProcess2 == null)
+                    {
+                        Debug.WriteLine("Error : ScrcpyProcess2 is null");
+                    }
+                    else
+                    {
+                        RaisePropertyChanged("CanStopScrcpy2");
+                        RaisePropertyChanged("CanStartScrcpy2");
+                    }
+                }
             }
             catch (Exception exception)
             {
@@ -322,11 +354,9 @@ namespace scrcpy_ui.ViewModels
             {
                 //StartScrcpy.IsEnabled = false;
                 //StopScrcpy.IsEnabled = true;
-                ScrcpyProcess2.Exited += ScrcpyProcessOnExited2;
+                if (isProcRunSuccess2)
+                    ScrcpyProcess2.Exited += ScrcpyProcessOnExited2;
             }
-
-
-
 
             /*while (!_scrcpyProcess.StandardOutput.EndOfStream)
             {
@@ -352,6 +382,18 @@ namespace scrcpy_ui.ViewModels
             {
                 Output += e.Data + "\r\n";
             });
+            if (e.Data != null && !e.Data.Contains("error"))
+            {
+                isProcRunSuccess2 = true;
+                if (ScrcpyProcess2 != null)
+                {
+                    Debug.WriteLine("ERR not null");
+                    StopScrcpy2();
+                }
+
+                RaisePropertyChanged("CanStopScrcpy2");
+                RaisePropertyChanged("CanStartScrcpy2");
+            }
         }
 
         private ICommand stopScrpyCommand2;
