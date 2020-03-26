@@ -29,10 +29,14 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="StartScrcpy">START</Button>
-                <Button x:Name="StopScrcpy">STOP</Button>
-                <Button x:Name="StartScrcpy2">START 2</Button>
-                <Button x:Name="StopScrcpy2">STOP 2</Button>
+                <TextBox x:Name="ArgsBox" MinWidth="320"/>
+                <Button x:Name="StartScrcpy" Margin="5,0,5,5">START</Button>
+                <Button x:Name="StopScrcpy" Margin="15,0,5,5">STOP</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <TextBox x:Name="ArgsBox2" MinWidth="320"></TextBox>
+                <Button x:Name="StartScrcpy2" Margin="5,0,5,5">START 2</Button>
+                <Button x:Name="StopScrcpy2">STOP 2</Button>                
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="Record" VerticalAlignment="Center"></CheckBox>
