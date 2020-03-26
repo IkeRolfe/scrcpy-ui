@@ -43,7 +43,7 @@
         <ScrollViewer Grid.Row="1">
             <TextBox x:Name="Output"/>
         </ScrollViewer>
-        <controls:NestedApplicationControl Grid.Column="2" Grid.RowSpan="3"
+        <controls:NestedApplicationControl Grid.Column="1" Grid.RowSpan="2"
                                            DockedProcess="{Binding ScrcpyProcess}"/>
         <controls:NestedApplicationControl2 Grid.Column="2" Grid.RowSpan="2"
                                            DockedProcess="{Binding ScrcpyProcess2}"/>
