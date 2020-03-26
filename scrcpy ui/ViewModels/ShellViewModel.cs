@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace scrcpy_ui.ViewModels
 {
@@ -79,6 +80,11 @@ namespace scrcpy_ui.ViewModels
             }
         }
 
+        private ICommand startScrpyCommand;
+        public ICommand StartScrcpyCommand
+        {
+            get { return (this.startScrpyCommand) ?? (this.startScrpyCommand = new DelegateCommand(StartScrcpy)); }
+        }
 
 
         public async void StartScrcpy()
@@ -171,6 +177,12 @@ namespace scrcpy_ui.ViewModels
             });
         }
 
+        private ICommand stopScrpyCommand;
+        public ICommand StopScrcpyCommand
+        {
+            get { return (this.stopScrpyCommand) ?? (this.stopScrpyCommand = new DelegateCommand(StopScrcpy)); }
+        }
+
         public void StopScrcpy()
         {
             if (ScrcpyProcess.HasExited == false)
@@ -239,6 +251,12 @@ namespace scrcpy_ui.ViewModels
                 _isRunning2 = value;
                 RaisePropertyChanged("_isRunning2");
             }
+        }
+
+        private ICommand startScrpyCommand2;
+        public ICommand StartScrcpyCommand2
+        {
+            get { return (this.startScrpyCommand2) ?? (this.startScrpyCommand2 = new DelegateCommand(StartScrcpy2)); }
         }
 
         public async void StartScrcpy2()
@@ -336,6 +354,12 @@ namespace scrcpy_ui.ViewModels
             });
         }
 
+        private ICommand stopScrpyCommand2;
+        public ICommand StopScrcpyCommand2
+        {
+            get { return (this.stopScrpyCommand2) ?? (this.stopScrpyCommand2 = new DelegateCommand(StopScrcpy2)); }
+        }
+
         public void StopScrcpy2()
         {
             if (ScrcpyProcess2.HasExited == false)
@@ -362,5 +386,71 @@ namespace scrcpy_ui.ViewModels
         public bool CanStopScrcpy2 => !ScrcpyProcess2?.HasExited ?? true;
         public bool CanStartScrcpy2 => ScrcpyProcess2?.HasExited ?? true;
     }
+
+    #region DelegateCommand Class
+    public class DelegateCommand : ICommand
+    {
+
+        private readonly Func<bool> canExecute;
+        private readonly Action execute;
+
+        /// <summary>
+        /// Initializes a new instance of the DelegateCommand class.
+        /// </summary>
+        /// <param name="execute">indicate an execute function</param>
+        public DelegateCommand(Action execute) : this(execute, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the DelegateCommand class.
+        /// </summary>
+        /// <param name="execute">execute function </param>
+        /// <param name="canExecute">can execute function</param>
+        public DelegateCommand(Action execute, Func<bool> canExecute)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
+        }
+        /// <summary>
+        /// can executes event handler
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+
+        /// <summary>
+        /// implement of icommand can execute method
+        /// </summary>
+        /// <param name="o">parameter by default of icomand interface</param>
+        /// <returns>can execute or not</returns>
+        public bool CanExecute(object o)
+        {
+            if (this.canExecute == null)
+            {
+                return true;
+            }
+            return this.canExecute();
+        }
+
+        /// <summary>
+        /// implement of icommand interface execute method
+        /// </summary>
+        /// <param name="o">parameter by default of icomand interface</param>
+        public void Execute(object o)
+        {
+            this.execute();
+        }
+
+        /// <summary>
+        /// raise ca excute changed when property changed
+        /// </summary>
+        public void RaiseCanExecuteChanged()
+        {
+            if (this.CanExecuteChanged != null)
+            {
+                this.CanExecuteChanged(this, EventArgs.Empty);
+            }
+        }
+    }
+    #endregion
 }
 

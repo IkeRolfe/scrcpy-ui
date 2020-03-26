@@ -4,13 +4,19 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:scrcpy_ui.ViewModels"
              xmlns:local="clr-namespace:scrcpy_ui.Views"
     Title="ScrCpy UI"
         xmlns:controls="clr-namespace:scrcpy_ui.Controls"
     FontSize="16"
         mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <mah:MetroWindow.DataContext>
+        <vm:ShellViewModel/>
+    </mah:MetroWindow.DataContext>
+    
     <Grid Margin="10">
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
@@ -30,13 +36,13 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="ArgsBox" MinWidth="320"/>
-                <Button x:Name="StartScrcpy" Margin="5,0,5,5">START</Button>
-                <Button x:Name="StopScrcpy" Margin="15,0,5,5">STOP</Button>
+                <Button Command="{Binding StartScrcpyCommand}" Margin="5,0,5,5">START</Button>
+                <Button Command="{Binding StopScrcpyCommand}" Margin="15,0,5,5">STOP</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <TextBox x:Name="ArgsBox2" MinWidth="320"></TextBox>
-                <Button x:Name="StartScrcpy2" Margin="5,0,5,5">START 2</Button>
-                <Button x:Name="StopScrcpy2">STOP 2</Button>                
+                <Button Command="{Binding StartScrcpyCommand2}" Margin="5,0,5,5">START 2</Button>
+                <Button Command="{Binding StopScrcpyCommand2}">STOP 2</Button>                
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox x:Name="Record" VerticalAlignment="Center"></CheckBox>
@@ -45,11 +51,11 @@
             </StackPanel>
         </StackPanel>
         <ScrollViewer Grid.Row="1">
-            <TextBox x:Name="Output"/>
+            <TextBox Text="{Binding Output}"/>
         </ScrollViewer>
         <controls:NestedApplicationControl Grid.Column="1" Grid.RowSpan="2"
-                                           DockedProcess="{Binding ScrcpyProcess}"/>
+                                           DockedProcess="{Binding ScrpyProcess}"/>
         <controls:NestedApplicationControl2 Grid.Column="2" Grid.RowSpan="2"
-                                           DockedProcess="{Binding ScrcpyProcess2}"/>
+                                           DockedProcess="{Binding ScrpyProcess2}"/>
     </Grid>
 </mah:MetroWindow>
